@@ -12,4 +12,16 @@ public partial class Contact
     public string? Email { get; set; }
 
     public string? Phone { get; set; }
+
+    public Contact()
+    {
+        
+    }
+
+    public Contact(string name, string email, string phone)
+    {
+        Name= name;
+        Email= email;
+        Phone= phone;
+    }
 }
