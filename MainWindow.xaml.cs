@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -52,7 +53,7 @@ namespace WPFAgenda
                 buttonSave.IsEnabled = true;
             }
 
-            //
+            // Update and Remove
             else if (option == 3)
             {
                 buttonUpdate.IsEnabled = true;
@@ -69,7 +70,7 @@ namespace WPFAgenda
                     .ToList();
 
                 int contactsQuantity = _context.Contacts.Count();
-                labelContactList.Content += $"({contactsQuantity})";
+                labelContactList.Content = $"Contact List ({contactsQuantity})";
             }
         }
 
@@ -77,16 +78,33 @@ namespace WPFAgenda
         {
             this.operation = OperationTag.INSERT;
             ChangeButtons(2);
+            CleanFormFields();
         }
 
         private void buttonUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            this.operation = OperationTag.UPDATE;
+            ChangeButtons(2);
         }
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
         {
+            using (WpfAgendaDbContext _context = new WpfAgendaDbContext())
+            {
+                int userId = Convert.ToInt32(textBoxId.Text);
 
+                Contact contact = _context.Contacts.FirstOrDefault(x => x.Id == userId);
+
+                if (contact != null)
+                {
+                    _context.Contacts.Remove(contact);
+                    _context.SaveChanges();
+                }
+            }
+
+            CleanFormFields();
+            ListContacts();
+            ChangeButtons(1);
         }
 
         private void buttonFind_Click(object sender, RoutedEventArgs e)
@@ -140,14 +158,14 @@ namespace WPFAgenda
         {
             try
             {
-                string userName = textBoxName.Text;
-                string userEmail = textBoxEmail.Text;
-                string userPhone = textBoxPhone.Text;
-
-                Contact contact = new Contact(userName, userEmail, userPhone);
+                string userName = textBoxName.Text.Trim();
+                string userEmail = textBoxEmail.Text.Trim();
+                string userPhone = textBoxPhone.Text.Trim();
 
                 if (this.operation == OperationTag.INSERT)
                 {
+                    Contact contact = new Contact(userName, userEmail, userPhone);
+
                     using (WpfAgendaDbContext _context = new WpfAgendaDbContext())
                     {
                         _context.Contacts.Add(contact);
@@ -157,15 +175,18 @@ namespace WPFAgenda
                 }
                 else if(this.operation == OperationTag.UPDATE)
                 {
+                    int userId = Convert.ToInt32(textBoxId.Text);
 
-                }
-                else if (this.operation == OperationTag.REMOVE)
-                {
+                    using (WpfAgendaDbContext _context = new WpfAgendaDbContext())
+                    {
+                        Contact contact = _context.Contacts.FirstOrDefault(x => x.Id == userId);
 
-                }
-                else if (this.operation == OperationTag.FIND)
-                {
-
+                        if(contact != null)
+                        {
+                            contact.UpdateContact(userName, userEmail, userPhone);
+                            _context.SaveChanges();
+                        }
+                    }
                 }
 
                 CleanFormFields();
@@ -178,8 +199,28 @@ namespace WPFAgenda
             }
         }
 
+        private void DataGridItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (DataGridItem.SelectedIndex != -1)
+            {
+                ChangeButtons(3);
+
+                //Contact contact = (Contact)DataGridItem.SelectedItem;
+                Contact contact = (Contact)DataGridItem.Items[DataGridItem.SelectedIndex];
+                
+                if (contact != null)
+                {
+                    textBoxId.Text = contact.Id.ToString();
+                    textBoxEmail.Text = contact.Email;
+                    textBoxPhone.Text = contact.Phone;
+                    textBoxName.Text = contact.Name;
+                }
+            }
+        }
+
         private void CleanFormFields()
         {
+            textBoxId.Clear();
             textBoxName.Clear();
             textBoxEmail.Clear();
             textBoxPhone.Clear();

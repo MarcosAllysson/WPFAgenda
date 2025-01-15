@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="657" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
         <Label Content="Phone" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxPhone" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="625"/>
+        <TextBox x:Name="textBoxPhone" HorizontalAlignment="Left" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="9,64,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Margin="10,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="625"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="9,118,0,0" VerticalAlignment="Top"/>
@@ -19,7 +19,9 @@
         <Button x:Name="buttonFind" Content="Find" HorizontalAlignment="Left" Margin="414,190,0,0" VerticalAlignment="Top" Height="45" Width="90" Click="buttonFind_Click"/>
         <Label x:Name="labelContactList" Content="Contact List" HorizontalAlignment="Center" Margin="10,240,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="buttonSave" Content="Save" HorizontalAlignment="Left" Margin="528,190,0,0" VerticalAlignment="Top" Height="45" Width="107" Click="buttonSave_Click"/>
-        <DataGrid x:Name="DataGridItem" Margin="10,271,22,10" IsReadOnly="True"/>
+        <DataGrid x:Name="DataGridItem" Margin="10,271,22,10" IsReadOnly="True" MouseDoubleClick="DataGridItem_MouseDoubleClick" SelectionMode="Single"/>
+        <Label Content="Id" HorizontalAlignment="Left" Margin="334,10,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <TextBox x:Name="textBoxId" HorizontalAlignment="Left" Margin="339,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="296" IsEnabled="False"/>
 
     </Grid>
 </Window>

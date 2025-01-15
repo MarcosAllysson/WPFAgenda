@@ -24,4 +24,11 @@ public partial class Contact
         Email= email;
         Phone= phone;
     }
+
+    public void UpdateContact(string name, string email, string phone)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+    }
 }
