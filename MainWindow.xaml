@@ -14,10 +14,10 @@
         <Label Content="Email" HorizontalAlignment="Left" Margin="9,118,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxEmail" HorizontalAlignment="Left" Margin="9,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="626"/>
         <Button x:Name="buttonInsert" Content="Insert" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Height="45" Width="99" Click="buttonInsert_Click"/>
-        <Button x:Name="buttonUpdate" Content="Update" HorizontalAlignment="Left" Margin="133,190,0,0" VerticalAlignment="Top" Height="45" Width="108"/>
-        <Button x:Name="buttonRemove" Content="Remove" HorizontalAlignment="Left" Margin="266,190,0,0" VerticalAlignment="Top" Height="45" Width="113" RenderTransformOrigin="0.441,0.932"/>
+        <Button x:Name="buttonUpdate" Content="Update" HorizontalAlignment="Left" Margin="133,190,0,0" VerticalAlignment="Top" Height="45" Width="108" Click="buttonUpdate_Click"/>
+        <Button x:Name="buttonRemove" Content="Remove" HorizontalAlignment="Left" Margin="266,190,0,0" VerticalAlignment="Top" Height="45" Width="113" RenderTransformOrigin="0.441,0.932" Click="buttonRemove_Click"/>
         <Button x:Name="buttonFind" Content="Find" HorizontalAlignment="Left" Margin="414,190,0,0" VerticalAlignment="Top" Height="45" Width="90" Click="buttonFind_Click"/>
-        <Label Content="Contact List" HorizontalAlignment="Center" Margin="10,240,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="labelContactList" Content="Contact List" HorizontalAlignment="Center" Margin="10,240,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="buttonSave" Content="Save" HorizontalAlignment="Left" Margin="528,190,0,0" VerticalAlignment="Top" Height="45" Width="107" Click="buttonSave_Click"/>
         <DataGrid x:Name="DataGridItem" Margin="10,271,22,10" IsReadOnly="True"/>
 
