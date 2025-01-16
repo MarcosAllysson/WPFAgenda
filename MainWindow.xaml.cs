@@ -89,22 +89,32 @@ namespace WPFAgenda
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
         {
-            using (WpfAgendaDbContext _context = new WpfAgendaDbContext())
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                "Are you sure you want to delete?", 
+                "Agreement", 
+                MessageBoxButton.YesNo, 
+                MessageBoxImage.Question
+            );
+
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                int userId = Convert.ToInt32(textBoxId.Text);
-
-                Contact contact = _context.Contacts.FirstOrDefault(x => x.Id == userId);
-
-                if (contact != null)
+                using (WpfAgendaDbContext _context = new WpfAgendaDbContext())
                 {
-                    _context.Contacts.Remove(contact);
-                    _context.SaveChanges();
-                }
-            }
+                    int userId = Convert.ToInt32(textBoxId.Text);
 
-            CleanFormFields();
-            ListContacts();
-            ChangeButtons(1);
+                    Contact contact = _context.Contacts.FirstOrDefault(x => x.Id == userId);
+
+                    if (contact != null)
+                    {
+                        _context.Contacts.Remove(contact);
+                        _context.SaveChanges();
+                    }
+                }
+
+                CleanFormFields();
+                ListContacts();
+                ChangeButtons(1);
+            }
         }
 
         private void buttonFind_Click(object sender, RoutedEventArgs e)
